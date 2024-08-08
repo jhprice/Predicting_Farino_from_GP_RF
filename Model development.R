@@ -9,7 +9,7 @@ library(data.table)
 #Loading GlutoPeak data and calculating features
 #This script will load all files in a folder, assumed to be the .xlsx folders output
 #by Braebender software
-wd <- "C:\\Users\\John.Price\\Documents\\Glutopeak\\test2\\"
+wd <- "C:\\User\\Directory\\"
 files <- list.files(wd)
 
 #input Farinograph data, one column per trait one row per sample
