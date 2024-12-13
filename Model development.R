@@ -43,8 +43,12 @@ for(i in files){
   summary$First_peak_time <- data %>% filter(slide_torque_max*.95 <= `TorqueMean[BU]`) %>% filter(dif_forward > `TorqueMean[BU]`*.025) %>% filter(time == min(time)) %>% select(time) %>% as.numeric()
   summary$First_peak_torque <- data %>% filter(slide_torque_max*.95 <= `TorqueMean[BU]`) %>% filter(dif_forward > `TorqueMean[BU]`*.025) %>% filter(time == min(time)) %>% select(`TorqueMean[BU]`) %>% as.numeric()
   summary$Max_before60_torque <- data %>% filter(time < 60) %>% summarise(max(`TorqueMean[BU]`)) %>% as.numeric()
+  
+  if(summary$First_peak_time + 15 < 151){
   PM <- data %>% filter(time == summary$First_peak_time + 15) %>% select(`TorqueMean[BU]`) %>% as.numeric()
-  summary$PMslope <- (summary$First_peak_torque - PM)/15
+  summary$PMslope <- (summary$First_peak_torque - PM)/15}else{
+      PM <- data %>% filter(time == 150) %>% select(`TorqueMean[BU]`) %>% as.numeric()
+      summary$PMslope <- (summary$First_peak_torque - PM)/(150 - summary$First_peak_time)}
   
   if(summary$First_peak_time - 15 > 1){
     AM <- data %>% filter(time == summary$First_peak_time - 15) %>% select(`TorqueMean[BU]`) %>% as.numeric()
